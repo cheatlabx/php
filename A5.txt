@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Dictionary</title> 
+</head> 
+<body> 
+<h2>Dictionary</h2> 
+<?php 
+// Define the associative array representing the dictionary 
+$dictionary = array( 
+"courage" => "ability to face fear,difficulty,danger", 
+"computer" => "an electronic device for storing and processing data", 
+"ocean" => "a large body of saltwater", 
+"mountain" => "a large landform that rises prominently above its surroundings", 
+"guitar" => "a musical instrument with strings that can be plucked or strummed", 
+"BOOK" => "a set of written or printed pages, usually bound with a protective 
+cover", 
+"sunflower" => "a tall, bright yellow flower with a round center", 
+"elephant" => "a large, herbivorous mammal with a long trunk and tusks", 
+"planet" => "a celestial body that orbits around a star", 
+"RAINBOW" => "a meteorological phenomenon that is caused by reflection, 
+refraction, and dispersion of light"    ); 
+// Initialize variables 
+    $word = ""; 
+    $meaning = ""; 
+$dictionary_lower=""; 
+    $dictionary_lower = array_change_key_case($dictionary, CASE_LOWER); 
+    // Check if the form is submitted 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+        // Get the user input 
+        $word = strtolower($_POST["word"]); 
+        // Check if the word is in the dictionary 
+        if (array_key_exists($word, $dictionary_lower)) { 
+        $meaning = "<strong>Meaning: </strong>".$dictionary_lower[$word]; 
+        } else { 
+            $meaning = "Word not found."; 
+        } 
+    } 
+    ?> 
+<form method="post" action=" <?php echo htmlspecialchars($_SERVER["PHP_SELF"]);  
+?>"> 
+<label for="word">Enter a word:</label> 
+<input type="text" id="word" name="word" value="<?php echo $word; ?>"  
+required> 
+<br><br> 
+<input type="submit" value="Search"> 
+</form> 
+<p> <?php echo $meaning;   ?> </p> 
+</body>   
+ </html> 
