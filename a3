@@ -1,0 +1,112 @@
+//A3Index.php
+<?php
+session_start();
+
+if (isset($_SESSION['username']))
+{
+    header("Location: A3Welcome.php");
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+{
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    if ($username === "BBHC" && $password === "IIIBCA")
+    {
+        $_SESSION['username'] = $username;
+        header("Location: A3Welcome.php");
+        exit();
+    }
+    else
+    {
+        $error_message = "Invalid Username or Password";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+
+<body>
+
+    <h2>Login</h2>
+
+    <form method="post">
+
+        Username:
+        <br>
+
+        <input type="text" name="username" required>
+
+        <br><br>
+
+        Password:
+        <br>
+
+        <input type="password" name="password" required>
+
+        <br><br>
+
+        <input type="submit" value="Login">
+
+        <br><br>
+
+        <?php
+        if (isset($error_message))
+        {
+            echo "<p style='color:red;'>$error_message</p>";
+        }
+        ?>
+
+    </form>
+
+</body>
+</html>
+
+//A3Welcome.php
+<?php
+session_start();
+
+if (!isset($_SESSION['username']))
+{
+    header("Location: A3Index.php");
+    exit();
+}
+
+if (isset($_GET['logout']))
+{
+    session_destroy();
+    header("Location: A3Index.php");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+</head>
+
+<body>
+
+    <h2>
+        Welcome:
+        <?php echo $_SESSION['username']; ?>
+    </h2>
+
+    <p>
+        You are logged in successfully.
+        This is a secured area.
+    </p>
+
+    <a href="A3Welcome.php?logout=1">
+        Logout
+    </a>
+
+</body>
+</html>
