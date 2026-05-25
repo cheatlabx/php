@@ -1,0 +1,53 @@
+A1.html 
+----------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="submit.php" method="post">
+        <label>Name:</label><br>
+        <input type="text" id="name" name="name" required><br></br>
+
+        <label>Email:</label><br>
+        <input type="email" id="email" name="email" required><br></br>
+
+        <label>Message:</label><br>
+        <textarea id="message" name="message" rows="4" required></textarea><br></br>
+
+        <input type="submit" value="submit">
+    </form>
+</body>
+</html>
+
+
+Submit.php
+--------------
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $name = $_POST["name"] ?? "";
+    $email = $_POST["email"] ?? "";
+    $message = $_POST["message"] ?? "";
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "<h3> Invalid Email Format</h3>";
+        exit();
+    }
+
+    echo "<h2>Form Submission Result</h2>";
+    
+    echo "<p><strong>Name:</strong>$name</p>";
+    echo "<p><strong>Email:</strong>$email</p>";
+    echo "<p><strong>Message:</strong>$message</p>";
+}
+else
+{
+    echo "<p>Access denied</p>";
+}
+
+?>
