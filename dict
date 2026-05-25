@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary</title>
+</head>
+
+<body>
+
+    <h2>Dictionary</h2>
+
+    <?php
+
+    $dictionary = array(
+        "courage"   => "ability to face fear, difficulty, danger",
+        "computer"  => "an electronic device for storing and processing data",
+        "ocean"     => "a large body of saltwater",
+        "mountain"  => "a large landform that rises above its surroundings",
+        "guitar"    => "a musical instrument with strings",
+        "book"      => "a set of written or printed pages",
+        "sunflower" => "a tall yellow flower",
+        "elephant"  => "a large animal with a trunk",
+        "planet"    => "a celestial body that orbits a star",
+        "rainbow"   => "colors formed by reflection of light"
+    );
+
+    $meaning = "";
+    $word = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        $word = strtolower($_POST["word"]);
+
+        if (isset($dictionary[$word]))
+        {
+            $meaning = "Meaning: " . $dictionary[$word];
+        }
+        else
+        {
+            $meaning = "Word not found.";
+        }
+    }
+
+    ?>
+
+    <form method="post">
+
+        <label>Enter a word:</label>
+
+        <input
+            type="text"
+            name="word"
+            value="<?php echo $word; ?>"
+            required>
+
+        <br><br>
+
+        <input type="submit" value="Search">
+
+    </form>
+
+    <p>
+        <?php echo $meaning; ?>
+    </p>
+
+</body>
+</html>
