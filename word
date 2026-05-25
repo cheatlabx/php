@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Word Frequency Analyzer</title>
+</head>
+
+<body>
+
+    <h2>Word Frequency Analyzer</h2>
+
+    <form method="post">
+
+        Enter a string:
+
+        <input
+            type="text"
+            name="text"
+            required
+            value="<?php echo $_POST['text'] ?? ''; ?>">
+
+        <button type="submit">
+            Analyze
+        </button>
+
+        <button type="submit" name="asc">
+            Sort Ascending
+        </button>
+
+        <button type="submit" name="desc">
+            Sort Descending
+        </button>
+
+    </form>
+
+    <?php
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        $text = strtolower($_POST["text"]);
+
+        $words = explode(" ", $text);
+
+        $count = array_count_values($words);
+
+        if (isset($_POST["asc"]))
+        {
+            asort($count);
+        }
+
+        elseif (isset($_POST["desc"]))
+        {
+            arsort($count);
+        }
+
+        echo "<h3>Word Frequencies:</h3>";
+
+        foreach ($count as $word => $value)
+        {
+            echo "$word : $value times<br>";
+        }
+
+        $max = max($count);
+
+        $min = min($count);
+
+        $most = implode(", ", array_keys($count, $max));
+
+        $least = implode(", ", array_keys($count, $min));
+
+        echo "<br><b>Most used word:</b> $most ($max times)<br>";
+
+        echo "<b>Least used word:</b> $least ($min times)";
+    }
+
+    ?>
+
+</body>
+</html>
