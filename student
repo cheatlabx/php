@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration Form</title>
+</head>
+
+<body>
+
+<h2>Student Registration Form</h2>
+
+<form action="b1Process.php" method="post">
+
+    First Name:
+    <input type="text" name="firstname" required>
+    <br><br>
+
+    Last Name:
+    <input type="text" name="lastname" required>
+    <br><br>
+
+    <div style="display:flex; align-items:center;">
+        Address:
+        <textarea name="address" rows="4" cols="30" required></textarea>
+    </div>
+    <br><br>
+
+    Email:
+    <input type="email" name="email">
+    <br><br>
+
+    Mobile:
+    <input type="tel" name="mobile" pattern="[0-9]{10}" required>
+    <br><br>
+
+    City:
+    <input type="text" name="city" required>
+    <br><br>
+
+    State:
+    <input type="text" name="state" required>
+    <br><br>
+
+    Gender:<br>
+    <input type="radio" name="gender" value="Male" required> Male<br>
+    <input type="radio" name="gender" value="Female"> Female
+    <br><br>
+
+    Hobbies:<br>
+    <input type="checkbox" name="hobbies[]" value="Reading"> Reading<br>
+    <input type="checkbox" name="hobbies[]" value="Sports"> Sports<br>
+    <input type="checkbox" name="hobbies[]" value="Music"> Music<br>
+    <input type="checkbox" name="hobbies[]" value="Other"> Other
+    <br><br>
+
+    Blood Group:
+    <select name="bloodgroup" required>
+        <option value="">Select</option>
+        <option>A+</option>
+        <option>A-</option>
+        <option>B+</option>
+        <option>B-</option>
+        <option>AB+</option>
+        <option>AB-</option>
+        <option>O+</option>
+        <option>O-</option>
+    </select>
+
+    <br><br>
+
+    <input type="submit" value="Submit">
+
+</form>
+
+</body>
+</html>
+
+#b1Process.php
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Details</title>
+</head>
+
+<body>
+
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+{
+    echo "<p><strong>First Name:</strong> " . $_POST['firstname'] . "</p>";
+
+    echo "<p><strong>Last Name:</strong> " . $_POST['lastname'] . "</p>";
+
+    echo "<p><strong>Address:</strong> " . $_POST['address'] . "</p>";
+
+    echo "<p><strong>Email:</strong> " . $_POST['email'] . "</p>";
+
+    echo "<p><strong>Mobile:</strong> " . $_POST['mobile'] . "</p>";
+
+    echo "<p><strong>City:</strong> " . $_POST['city'] . "</p>";
+
+    echo "<p><strong>State:</strong> " . $_POST['state'] . "</p>";
+
+    echo "<p><strong>Gender:</strong> " . $_POST['gender'] . "</p>";
+
+    echo "<p><strong>Hobbies:</strong> " . implode(", ", $_POST['hobbies']) . "</p>";
+
+    echo "<p><strong>Blood Group:</strong> " . $_POST['bloodgroup'] . "</p>";
+}
+
+?>
+
+</body>
+</html>
